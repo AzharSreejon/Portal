@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Strawberry 🍓</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-day: #ffe6f0;
+      --bg-night: #1a0820;
+      --text-day: #5e2750;
+      --text-night: #f9e8ff;
+      --box-day: #f3ddff;
+      --box-night: #2f1537;
+      --accent: #ffc0cb;
+    }
+
+
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--bg-day);
+      color: var(--text-day);
+      transition: all 0.6s ease;
+    }
+
+    .night {
+      background: var(--bg-night);
+      color: var(--text-night);
+    }
+#adventure-wheel {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #fff0f6;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 20px;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      z-index: 999;
+      width: 250px;
+    }
+    .night #adventure-wheel {
+      background-color: #2a0c1e;
+      color: #f9e8ff;
+    }
+    #adventure-display {
+      margin-top: 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+      min-height: 40px;
+    }
+    #spin-btn {
+      margin-top: 12px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 10px;
+      background-color: #bb2288;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #spin-btn:hover {
+      background-color: #922d6c;
+    }#mood-picker {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: #fff0f6;
+      padding: 12px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 999;
+      text-align: center;
+      width: 180px;
+    }
+
+    .night #mood-picker {
+      background: #2a0c1e;
+      color: #f9e8ff;
+    }
+    #mood-display {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }#sticky-note {
+      position: fixed;
+      top: 540px;
+      right: 20px;
+      width: 180px;
+      height: 160px;
+      background: #fbc0d9;
+      padding: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1em;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      resize: none;
+      z-index: 999;
+    }
+    #notification-bar {
+      background-color: #ffe0ed;
+      color: #5e2750;
+      font-family: 'Cormorant Garamond', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      font-size: 1.1em;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    .night #notification-bar {
+      background-color: #3b1234;
+      color: #f9e8ff;
+    }
+
+    #notification-bar .message {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    #notification-bar .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    #notification-bar .close-btn:hover {
+      color: #bb2288;
+    }
+
+.night #bucket-list li {
+  background-color: #2f1b2f;
+  border-color: #bb2288;
+  color: #f9e8ff;
+}
+
+    .sidebar {
+      position: fixed;
+      top: 0.5px;
+      left: 0;
+      width: 210px;
+      height: 150%;
+      background-color: #fff0f6;
+      border-right: 2px solid #ffcce1;
+      padding: 50px 10px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 999;
+    }
+
+    .night .sidebar {
+      background-color: #2a0c1e;
+      border-color: #922d6c;
+    }
+
+    .sidebar button, .sidebar a {
+      width: 100%;
+      font-size: 1em;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      background-color: #fbc0d9;
+    }
+  
+
+    .sidebar .section-title {
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 1.1em;
+      border-top: 1px solid #e8a5c4;
+      padding-top: 30px;
+    }
+
+    .love-letters {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.9em;
+      padding-left: 10px;
+    }
+
+    .love-letters a {
+      text-decoration: none;
+      color: #bb2288;
+    }
+
+    .love-letters a:hover {
+      text-decoration: underline;
+    }
+
+    .night .love-letters a {
+      color: #fbc0h9;
+    }
+#bucket-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.2em;
+  text-align: left;
+  max-width: 500px;
+  margin: 30px auto;
+}
+
+#bucket-list li {
+  background-color: #fff3f7;
+  border: 1px solid #ffcce6;
+  padding: 12px 18px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(255, 192, 203, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background-color 0.3s ease;
+}
+
+    .container {
+      margin-left: 500px;
+      padding: 100px 30px 60px;
+      text-align: center;
+      max-width: 950px;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4em;
+      margin-bottom: 20px;
+      color: var(--accent);
+      animation: heartbeat 2s infinite;
+    }
+
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8em;
+      margin-top: 30px;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.5s ease forwards;
+    }
+
+    p {
+      font-size: 1.5em;
+      line-height: 1.9em;
+      margin: 20px 0;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 1.2em;
+      font-family: 'Cormorant Garamond', serif;
+      border: none;
+      border-radius: 12px;
+      background-color: #bb2288;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 0, 102, 0.3);
+      margin-top: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .surprise {
+      display: none;
+      background-color: var(--box-day);
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 15px;
+      font-size: 1.4em;
+    }
+
+    .night .surprise {
+      background-color: var(--box-night);
+    }
+
+    
+    
+.image-box {
+      margin-top: 20px;
+      animation: bounceIn 2s ease forwards;
+    }
+ .slider-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .image-box img {
+      width: 270px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+    }
+.slider-container {
+  width: 30%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+}
+
+.slider-container img {
+  position: absolute;
+  top: 40;
+  left: 60;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  border-radius: 20px;
+}
+
+.slider-container img.active {
+  display: block;
+  animation: fadeSlide 1s ease-in-out;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.slider-container .prev,
+.slider-container .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  font-size: 1.5em;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.slider-container .prev { left: 10px; }
+.slider-container .next { right: 10px; }
+
+.dots {
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.dots span {
+  height: 10px;
+  width: 10px;
+  margin: 0 4px;
+  background-color: #ffc0cb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dots span.active {
+  background-color: #bb2288;
+}
+
+    
+.hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: float 6s infinite;
+    }
+
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+@keyframes float {
+ 0% {
+    transform: translateY(100vh) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20vh) rotate(45deg); 
+    opacity: 0;
+  }
+}
+
+
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      60% { opacity: 1; transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+  </style>
+
+</head>
+<body>
+<button id="toggle-sidebar-btn" onclick="toggleSidebar()" style="position: fixed; left: 00px; top: -20px; z-index: 1000;">
+  ☰
+</button>
+<div id="mood-picker">
+  <div>🧠 Today's Mood</div>
+  <div>
+    <button onclick="setMood('😍')">😍</button>
+    <button onclick="setMood('😊')">😊</button>
+    <button onclick="setMood('😴')">😴</button>
+    <button onclick="setMood('😢')">😢</button>
+  </div>
+  <div id="mood-display">✨</div>
+</div>
+<div id="adventure-wheel">
+  <div>🎡 Tonight's Adventure</div>
+  <div id="adventure-display">✨ Click to spin!</div>
+  <button id="spin-btn" onclick="spinAdventure()"> Let's See 🎲</button>
+</div>
+<div id="notification-bar">
+  <div class="message">
+    🔔 <strong>Hi Strawberry!</strong> You’ve opened something made just for you 🍓
+  </div>
+  <button class="close-btn" onclick="closeNotification()">✖</button>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+
+
+  <button onclick="playMusic()">🎵 Music</button>
+  <button onclick="toggleMode()">🌙 Day / Night</button>
+ <button onclick="openPuzzleGame()">🧩 Puzzle Game</button>
+
+<div class="memory-journal">
+    <label for="journal">📔 Memory Journal</label>
+    <textarea id="journal" placeholder="Write something sweet here..."></textarea>
+  </div>
+
+  <div class="section-title"> </div>
+  <button onclick="toggleLetters()">💌Letters ▼</button>
+  <div class="love-letters" id="letters-box">
+   <a href="/mnt/data/1,january.pdf" target="_blank">📄 January (28 Jan 2025)</a>
+    <a href="/mnt/data/2,Monthly Mail (March).pdf" target="_blank">📄 March Mail (14 Mar 2025)</a>
+    <a href="/mnt/data/3,Apology.pdf" target="_blank">📄 Apology (22 Mar 2025)</a>
+    <a href="/mnt/data/4,Eidul fitr.pdf" target="_blank">📄 Eid-ul-Fitr (31 Mar 2025)</a>
+    <a href="/mnt/data/5,শুভ নববর্ষ.pdf" target="_blank">📄 নববর্ষ (14 Apr 2025)</a>
+    <a href="/mnt/data/6,Monthly Mail (April).pdf" target="_blank">📄 April Mail (30 Apr 2025)</a>
+    <a href="/mnt/data/7,Monthly Mail (May).pdf" target="_blank">📄 May Mail (31 May 2025)</a>
+    <a href="/mnt/data/8,Eid Mubarak to the love of my life.pdf" target="_blank">📄 Eid al-Azha (6 Jun 2025)</a>
+  </div>
+
+  <a href="/mnt/data/Love_Letters.zip" download>📦 Download All ZIP</a>
+</div>
+
+<div id="countdown-box" style="text-align:center; margin-top: 10px; font-size: 1.85em;"></div>
+
+
+<!-- Main Content -->
+<div class="container">
+  <h1>To My Beautiful Nussh 🍓</h1>
+  <audio id="bg-music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/11/16/audio_f5fb75e73b.mp3" type="audio/mpeg">
+  </audio>
+
+  <p>My Sweet Strawberry... this page is my heart, written for you </p>
+  <p>It's the shortest part of my journal... that I can share with you now.</p>
+<textarea id="sticky-note" placeholder="Write a note for your watermelon here... 💌"></textarea>
+
+  <h2>You're My Favorite Chapter</h2>
+  <p>If life were a storybook, you would be the golden pages — full of love, warmth, and wonder. With you, every day feels like poetry, every smile like magic.</p>
+
+  <h2>I Love You More Than Words </h2>
+  <p>I adore your smile, your soul, your softness. You are not just my love — you're my muse, my calm, and my forever. </p>
+
+  <button onclick="revealSurprise()">Click for a Surprise </button>
+  <div class="surprise" id="surprise">
+     You are the queen of my heart, Jahan.<br>
+    No distance, no time, no world could ever stop me from loving you deeply and endlessly. <br><br>
+    <button onclick="hideSurprise()">Yes, I Know!</button>
+  </div>
+<h2> Our Shared Bucket List</h2>
+<ul id="bucket-list">
+  <li><input type="checkbox"> Watch Stranger Things S5 together</li>
+  <li><input type="checkbox"> Train Trip To Sylhet </li>
+  <li><input type="checkbox"> Take pictures with matching Saree and Panjabi</li>
+  <li><input type="checkbox"> Teach Swimming/Driving to each other </li>
+  <li><input type="checkbox"> Hit gym together </li>
+  <li><input type="checkbox"> Watch Football match in Barcelona Together</li>
+</ul>
+
+<div class="slider-row">
+<div class="image-box">
+  <div class="slider-container" id="photo-slider">
+    <img src="https://i.postimg.cc/v8rzDZvZ/0b4d9012-0029-429d-aa27-2e117d590bbc.jpg" class="active">
+         <img src="https://i.postimg.cc/RFztnBd6/download.jpg">
+    <img src="https://i.postimg.cc/HL80mYxH/3d6fc088-aed1-4e1e-a2f0-fc8ce6a63135.jpg">
+<img src="https://i.postimg.cc/D0TP597h/584637d7-3799-4b54-b54c-474e8892a677.jpg">
+    <img src="https://i.postimg.cc/c4TBMk2q/4a313eb3-ddfa-400d-8cee-18dae2558db8.jpg">
+<img src="https://i.postimg.cc/bNqRnf6H/58eb39e8-8818-41cc-bc0c-06e3fea929c1.jpg">
+<img src="https://i.postimg.cc/tJNtcBgx/7bdd630d-3abe-4af3-b081-fed5d4a7244a.jpg">
+<img src="https://i.postimg.cc/ZqXcv9gC/989578c4-e2fc-47b9-863c-96af79d14dec.jpg">
+<img src="https://i.postimg.cc/g2Ty1XGN/a947edfd-e5ed-4026-b714-554d341cc84f.jpg">
+<img src="https://i.postimg.cc/HLrzL06q/adf1544f-636a-4eb8-8016-961f54e05de4.jpg">
+<img src="https://i.postimg.cc/FHRgPgXY/d9303cbf-b93e-47b9-a61f-008600288841.jpg">
+<img src="https://i.postimg.cc/xCHPvfDg/0df96941-81c5-46c8-a365-bf9d3bf6c9ad.jpg">
+<button class="prev" onclick="changeSlide(-1)">❮</button>
+    <button class="next" onclick="changeSlide(1)">❯</button>
+    <div class="dots" id="slider-dots"></div>
+    
+</div>
+  <p><i>This present is just for you. Even when I'm not beside you, my love shall wrap your heart. </i></p>
+</div>
+  
+  
+
+  
+
+<div class="hearts"></div>
+
+<script>
+const adventures = [
+    "Midnight walk under the stars 🌙",
+    "Movie marathon with popcorn 🍿",
+    "Oil massage and cuddle session 🛏️",
+    "Try a different cuisine outside",
+    "Try a new dessert recipe together 🍰",
+    "Play truth or kiss 😘",
+    "Read a book together ",
+    "Go on a picnic in a secret spot 🧺"
+  ];
+
+  function spinAdventure() {
+    const display = document.getElementById("adventure-display");
+    const random = adventures[Math.floor(Math.random() * adventures.length)];
+    display.innerHTML = random;
+  }
+
+  function setMood(emoji) {
+    document.getElementById("mood-display").innerText = emoji;
+    localStorage.setItem("todaysMood", emoji);
+  }
+window.onload = () => {
+    const savedMood = localStorage.getItem("todaysMood");
+    if (savedMood) document.getElementById("mood-display").innerText = savedMood;
+    const savedNote = localStorage.getItem("stickyNote");
+    if (savedNote) document.getElementById("sticky-note").value = savedNote;
+  };
+document.getElementById("sticky-note").addEventListener("input", (e) => {
+    localStorage.setItem("stickyNote", e.target.value);
+  });
+  const hearts = document.querySelector('.hearts');
+  for (let i = 0; i < 40; i++) {
+    let heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    heart.style.opacity = Math.random();
+    hearts.appendChild(heart);
+heart.style.width = heart.style.height = (Math.random() * 20 + 10) + 'px';
+heart.style.background = `hsl(${Math.random() * 360}, 100%, 85%)`;
+  
+}
+
+  function playMusic() {
+    const audio = document.getElementById('bg-music');
+    audio.play();
+  }
+
+  function toggleMode() {
+    document.body.classList.toggle('night');
+  }
+function openPuzzleGame() {
+  alert('🧩 Launching puzzle game soon! Wanna play with me?');
+
+}
+  function revealSurprise() {
+    document.getElementById('surprise').style.display = 'block';
+  }
+
+  function hideSurprise() {
+    document.getElementById('surprise').style.display = 'none';
+  }
+
+  function closeNotification() {
+    document.getElementById('notification-bar').style.display = 'none';
+  }
+
+ function initSlider(containerId, dotsId) {
+  let index = 0;
+  const container = document.getElementById(containerId);
+  const images = container.querySelectorAll("img");
+  const dotsContainer = document.getElementById(dotsId);
+
+  dotsContainer.innerHTML = "";
+  images.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.addEventListener("click", () => setSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll("span");
+
+  function showSlides() {
+    images.forEach((s, i) => {
+      s.classList.remove("active");
+      dots[i].classList.remove("active");
+    });
+    images[index].classList.add("active");
+    dots[index].classList.add("active");
+  }
+
+  function changeSlide(n) {
+    index = (index + n + images.length) % images.length;
+    showSlides();
+  }
+
+  function setSlide(n) {
+    index = n;
+    showSlides();
+  }
+
+  container.querySelector(".prev").onclick = () => changeSlide(-1);
+  container.querySelector(".next").onclick = () => changeSlide(1);
+  setInterval(() => changeSlide(1), 4000);
+  showSlides();
+}
+
+initSlider("photo-slider", "slider-dots");
+initSlider("photo-slider-2", "slider-dots-2");
+
+
+
+  function toggleLetters() {
+    const box = document.getElementById('letters-box');
+    box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+
+
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.style.display = sidebar.style.display === 'none' ? 'flex' : 'none';
+}
+
+const countdownBox = document.getElementById("countdown-box");
+const meetDate = new Date("November 25, 2025 00:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const diff = meetDate - now;
+
+  if (diff <= 0) {
+    countdownBox.innerHTML = " It's finally time! You two are meeting today! ";
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+  countdownBox.innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
+}
+
+setInterval(updateCountdown, 1000);
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
